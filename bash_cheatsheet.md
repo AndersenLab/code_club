@@ -8,7 +8,7 @@ What are some of your favorite/most useful bash commands? Maybe someone else can
 * `find . -name file.txt` or `ls -R * | grep file` - to find files in current directory
 * `mv -i` - ask before overwritting a file
 * `zcat file.gz` - to quick print a gzipped file
-* `wget -bqc <url>` - download file from url in background 
+* `wget -bqc <url>` - download file from url in background
 * `cat file.tsv | sort -k4` - print and sort file by 4th column (use `sort -k4 -n` for numeric sort)
 * `cat file.tsv | awk '{print $4}' | sort | uniq` - to get all unique values in the fourth column
 * `grep -v NA file.tsv` - removes all NA from file
@@ -27,7 +27,7 @@ What are some of your favorite/most useful bash commands? Maybe someone else can
 
 ## bcftools
 
-* `bcftools view <vcf>` - view vcf 
+* `bcftools view <vcf>` - view vcf
 * `bcftools view -H <vcf>` - view vcf without header
 * `bcftools view -h <vcf>` - view vcf only header
 * `bcftools view -s sample1,sample2,sample3 <vcf>` - subset vcf for only 3 samples
@@ -36,6 +36,10 @@ What are some of your favorite/most useful bash commands? Maybe someone else can
 * `bcftools query -l <vcf>` - print out list of all samples in vcf
 * `bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%SAMPLE=%GT]\n' <vcf>` - print certain columns of vcf as tsv output
 * `bcftools query -i GT=="alt" <vcf>` - filter to only keep rows where GT == "alt" (also `bcftools query -e GT=="ref" <vcf>` to exlude rows)
+
+
+## gatk
+* `gatk VariantsToTable -V <vcf> -F CHROM -F POS -GF GT ` - print certain columbns of vcf as tsv output -F for INFO Fields -GF for FORMAT fields. Format field produces column for each sample (Ex. CB4856.GT AB1.GT)
 
 ## Git
 
