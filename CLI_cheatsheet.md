@@ -1,4 +1,4 @@
-# Bash Cheatsheet
+# Command Line Cheatsheet
 
 What are some of your favorite/most useful bash commands? Maybe someone else can learn from you too! For more resources, also check out the [dry guide](http://andersenlab.org/dry-guide/latest/bash/)
 
