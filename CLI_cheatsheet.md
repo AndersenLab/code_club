@@ -31,7 +31,8 @@ What are some of your favorite/most useful bash commands? Maybe someone else can
 * `bcftools view -H <vcf>` - view vcf without header
 * `bcftools view -h <vcf>` - view vcf only header
 * `bcftools view -s sample1,sample2,sample3 <vcf>` - subset vcf for only 3 samples
-* `bcftools view -sI sample1,sample2,sample3 <vcf>` - subset vcf for only 3 samples and do not recalculate AF etc.
+* `bcftools view -s sample1,sample2,sample3 -I <vcf>` - subset vcf for only 3 samples and do not recalculate AF etc.
+* `bcftools view -S sample_list.tsv <vcf>` - subset vcf for only samples within `sample_list.tsv`
 * `bcftools view -r III:1-800000 <vcf>` - subset vcf for region
 * `bcftools query -l <vcf>` - print out list of all samples in vcf
 * `bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%SAMPLE=%GT]\n' <vcf>` - print certain columns of vcf as tsv output
