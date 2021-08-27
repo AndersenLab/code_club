@@ -40,7 +40,7 @@ What are some of your favorite/most useful bash commands? Maybe someone else can
 
 
 ## gatk
-* `gatk VariantsToTable -V <vcf> -F CHROM -F POS -GF GT ` - print certain columbns of vcf as tsv output -F for INFO Fields -GF for FORMAT fields. Format field produces column for each sample (Ex. CB4856.GT AB1.GT)
+* `gatk VariantsToTable -V <vcf> -F CHROM -F POS -GF GT ` - print certain columns of vcf as tsv output -F for INFO Fields -GF for FORMAT fields. Format field produces column for each sample (Ex. CB4856.GT AB1.GT)
 
 ## Git
 
