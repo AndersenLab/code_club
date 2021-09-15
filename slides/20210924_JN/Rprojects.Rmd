@@ -1,0 +1,73 @@
+---
+title: "Using R projects"
+output:
+  html_document:
+    theme: flatly
+  pdf_document: default
+---
+```{r include=FALSE}
+library(tidyverse)
+```
+
+# What are R projects?
+
+I stumbled across R projects when I was trying (and failing) to keep scripts in separate project directories 
+organized AND accessible on multiple machines.
+
+In my early days I was no stranger to having this at the top of each script:   
+
+    setwd('path/that/only/ever/works/on/one/machine')
+
+And while `setwd()` served it's purpose I often ended up frustrated when trying to change from project A to project B
+or working on my personal computer. And not to mention the impossibility of easily sharing code with this structure.
+
+R Projects allows you to keep all files associated with a single project together -- input data, R scripts, figures, etc.
+Likely you already have project specific folders to keep track of your work. R Projects fits right into this workflow.
+
+Creating a new project is simple and RStudio provides a [walkthrough](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) for this.  
+Here's a real-time video of how to create a new R Project yourself:
+
+<video width="940" height="800" controls>
+  <source src="tutorial.mp4" type="video/mp4">
+</video>
+
+Now your working directory will always start at the same level your R project file exists. 
+
+```{r}
+getwd()
+```
+Whenever you refer to a file with a relative path, it will start by looking here.  
+
+# Why use R projects
+
+R projects are especially convenient if you want to simultaneously work in two project directories.  
+All you have to do is navigate to the folders associated with the projects, and open the `.Rproj` file.  
+Additionally, you can refer to files within this directory with relative path names.  
+
+```{r}
+readr::write_csv(diamonds, 'sample/diamonds.csv')
+list.files('sample')
+```
+
+# The **here** package
+
+If you want to completely eliminate writing paths, I'd recommend checking out the `here` package.  
+`here` works hand in hand with Rprojects to allow you to easily build paths from the top-level directory.
+
+```{r}
+library(here)
+here::here()
+```
+
+    
+Now you can build paths relative to the top-level directory:
+```{r}
+sample <- readr::read_csv(here::here('sample', 'diamonds.csv'))
+ggplot2::ggplot(sample, aes(carat, price)) + 
+  geom_hex()
+```
+
+Again -- these relative paths will work regardless of where the associated source file exists within the project.  
+Using this combination of `R projects` and `here` allows you to easily navigate through your project directory and 
+subdirectories without ever writing another full path name!
+
