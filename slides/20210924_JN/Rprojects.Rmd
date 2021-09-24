@@ -9,6 +9,11 @@ output:
 library(tidyverse)
 ```
 
+Here I want to talk briefly about the advantages of and tools for building project-oriented workflows.
+As a beginning R user, I was aware of the benefits of organizing each data analysis into a project: 
+a folder on your computer that holds all the files relevant to that particular piece of work. 
+However, I was unaware of tools such as Rprojects that allowed for easy navigation through projects. 
+
 # What are R projects?
 
 I stumbled across R projects when I was trying (and failing) to keep scripts in separate project directories 
@@ -18,11 +23,13 @@ In my early days I was no stranger to having this at the top of each script:
 
     setwd('path/that/only/ever/works/on/one/machine')
 
-And while `setwd()` served it's purpose I often ended up frustrated when trying to change from project A to project B
+Here, R takes the absolute file path as an input then sets it as the current working directory of the R process. 
+While `setwd()` served it's purpose, I often ended up frustrated when trying to change from project A to project B
 or working on my personal computer. And not to mention the impossibility of easily sharing code with this structure.
+Simply moving the entire directory to a new sub-folder or to a new drive breaks the links leaving you with a useless script! 
 
-R Projects allows you to keep all files associated with a single project together -- input data, R scripts, figures, etc.
-Likely you already have project specific folders to keep track of your work. R Projects fits right into this workflow.
+RStudio fully supports Project-based workflows, making it easy to switch from one to another, 
+have many projects open at once, re-launch recently used Projects, etc.    
 
 Creating a new project is simple and RStudio provides a [walkthrough](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) for this.  
 Here's a real-time video of how to create a new R Project yourself:
