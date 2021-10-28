@@ -1,0 +1,39 @@
+---
+title: "RStudio's Visual Editor"
+output:
+  html_document:
+    theme: flatly
+  pdf_document: default
+---
+
+Have you ever wanted to take a peek at your knit markdown file without actually hitting `knit`... or wish you could make some final tweaks to your file in it's visual form? Well say hello to RStudio's new Visual Markdown Editor!
+
+To start, you will need to have RStudio v1.4 or higher downloaded. To find the latest version of RStudio, visit [here](https://rstudio.com/products/rstudio/download/).
+
+# Exploring the editor toolbar
+
+Once you open a new Markdown file, you'll notice a new icon in the far right corner.
+
+![](img/img1.png)
+
+After pressing the protractor button, you'll notice a new array of editor buttons.
+
+![](img/img2.png)
+
+Look familiar? Lots of options you might be familiar with from working in Microsoft Word/Google Docs are here! Now there's no need to remember that `**bold**` makes **bold** or `_italics_` makes *italics*.
+
+The toolbar includes buttons for the most commonly used formatting commands, but additional commands are available on the **Format**, **Insert** and **Table** drop down menus.
+
+![](img/toolbar.png){width="650"}
+
+There are also several keyboard shortcuts for quick access, see below:
+
+![](img/shortcuts.png){width="650"}
+
+# Live tutorial
+
+<video width="800" height="600" controls>
+  <source src="img/tutorial.mp4" type="video/mp4">
+</video>
+
+Looking for more? Check out this [page](https://rstudio.github.io/visual-markdown-editing/?_ga=2.142986928.400610643.1635448392-661689541.1635448392) from RStudio.
