@@ -16,7 +16,7 @@ Once you open a new Markdown file, you'll notice a new icon in the far right cor
 
 ![](img/img1.png)
 
-After pressing the protractor button, you'll notice a new array of editor buttons.
+After pressing the compass button, you'll notice a new array of editor buttons.
 
 ![](img/img2.png)
 
@@ -36,4 +36,4 @@ There are also several keyboard shortcuts for quick access, see below:
   <source src="img/tutorial.mp4" type="video/mp4">
 </video>
 
-Looking for more? Check out this [page](https://rstudio.github.io/visual-markdown-editing/?_ga=2.142986928.400610643.1635448392-661689541.1635448392) from RStudio.
+Looking for more? Check out this [how-to](https://rstudio.github.io/visual-markdown-editing/?_ga=2.142986928.400610643.1635448392-661689541.1635448392) from RStudio.
