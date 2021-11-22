@@ -32,6 +32,32 @@ new_starwars <- new_starwars %>% dplyr::filter(eye_color_new == "cool")
 * `gganimate` to create animation plots
 * [Package to help with silly ggplot things](https://brandmaier.github.io/ggx/)
 
+## R markdown
+
+* Render an R markdown from a script using `rmarkdown::render("file.Rmd")`
+* Set default to not print code or messages: `knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)`
+* Nice R markdown layout with table of contents:
+
+```
+---
+title: "Linkage Mapping Report"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+    html_document:
+        theme: lumen
+        toc: yes
+        toc_float:
+          collapsed: true
+          smooth_scroll: false
+---
+```
+
+* If you have a markdown report where you will be looping through many items and making the same plots (i.e. linkage mapping report for all drugs and all traits), you could think of writing a series of markdown files to make dynamic headings for each drug/trait that will be placed in the TOC for easy maneuvering:
+
+![](rmarkdown_knitchild.png)
+
+  * Note: All environmental variables will be transfered from original markdown to template markdown. You can then create a dynamic header (i.e. header that says the trait name) using "## `r i`" (outside of a code chunk) in the template file (where `i` is the trait name from the loop)
+
 ## Misc.
 
 * set working directory as the location of the active file
