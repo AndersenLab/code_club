@@ -54,9 +54,9 @@ output:
 
 * If you have a markdown report where you will be looping through many items and making the same plots (i.e. linkage mapping report for all drugs and all traits), you could think of writing a series of markdown files to make dynamic headings for each drug/trait that will be placed in the TOC for easy maneuvering:
 
-![](rmarkdown_knitchild.png)
+<img src="rmarkdown_knitchild.png" width=50%>
 
-  * Note: All environmental variables will be transfered from original markdown to template markdown. You can then create a dynamic header (i.e. header that says the trait name) using "## `r i`" (outside of a code chunk) in the template file (where `i` is the trait name from the loop)
+  * Note: All environmental variables will be transfered from original markdown to template markdown. You can then create a dynamic header (i.e. header that says the trait name) using "## \`r i\`" (outside of a code chunk) in the template file (where `i` is the trait name from the loop)
 
 ## Misc.
 
