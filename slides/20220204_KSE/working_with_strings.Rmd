@@ -1,0 +1,526 @@
+---
+title: "Working with Strings"
+author: "KSE"
+date: "1/18/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = TRUE)
+
+# load tidyverse package
+library(tidyverse)
+```
+
+# Load data to play with
+
+```{r}
+# Load data
+data(starwars)
+
+# View data
+# View(starwars)
+head(starwars)
+
+# quetions about data?
+# ?starwars
+
+```
+
+# Detect Matches
+
+## stringr::str_detect(string, pattern)
+
+**1. Keep all hair colors that mention brown**
+
+```{r}
+
+# using just filter, no stringr
+starwars %>%
+  dplyr::filter(hair_color == "brown") %>%
+  nrow()
+
+# use str_detect to get more (i.e. "brown, grey")
+starwars %>%
+  dplyr::filter(stringr::str_detect(hair_color, "brown")) %>%
+  nrow()
+
+# Can also use grepl instead of stringr
+starwars %>%
+  dplyr::filter(grepl("brown", hair_color)) %>%
+  nrow()
+
+```
+
+## stringr::str_count(string, pattern)
+
+**2. Make a new column counting how many 'a's are in each character's name**
+
+```{r}
+
+starwars %>%
+  dplyr::mutate(letter_a = stringr::str_count(name, "a")) %>%
+  head()
+
+```
+
+**3. Make a new column counting how many vowels are in each character's name**
+
+```{r}
+
+# use | for "or" statements
+starwars %>%
+  dplyr::mutate(letter_a = stringr::str_count(name, "a|e|i|o|u|A|E|I|O|U")) %>%
+  head()
+
+```
+
+# Mutate strings
+
+## stringr::str_to_lower(string)
+
+**4. Again, but this time change all letters to lowercase first...**
+
+```{r}
+
+# use | for "or" statements
+starwars %>%
+  dplyr::mutate(name = stringr::str_to_lower(name)) %>%
+  dplyr::mutate(letter_a = stringr::str_count(name, "a|e|i|o|u")) %>%
+  head()
+
+# also can use [aeiou] which is a little easier
+starwars %>%
+  dplyr::mutate(name = stringr::str_to_lower(name)) %>%
+  dplyr::mutate(letter_a = stringr::str_count(name, "[aeiou]")) %>%
+  head()
+
+```
+
+*Also explore stringr::str_to_upper() and stringr::str_to_title()*
+
+```{r}
+
+# upper
+starwars %>%
+  dplyr::mutate(name = stringr::str_to_upper(name)) %>%
+  head()
+
+# title
+starwars %>%
+  dplyr::mutate(name = stringr::str_to_title(name)) %>%
+  head()
+
+```
+
+## stringr::str_replace(string, pattern, replacement)
+
+**5. Replace all mentions of "Human" with "Homo sapiens"**
+
+```{r}
+
+# use | for "or" statements
+starwars %>%
+  dplyr::mutate(species = stringr::str_replace(species, "Human", "Homo sapiens")) %>%
+  head()
+
+```
+
+*Note: this function only replaces the FIRST instance. If you want to replace multiple, try stringr::str_replace_all(string, pattern, replacement)*
+
+**6. Replace all "a"s with "b"s in everyone's name**
+
+```{r}
+
+# first use stringr::str_replace()
+starwars %>%
+  dplyr::mutate(name = stringr::str_replace(name, "a", "b")) %>%
+  head()
+
+# now use stringr::str_replace_all()
+starwars %>%
+  dplyr::mutate(name = stringr::str_replace_all(name, "a", "b")) %>%
+  head()
+
+```
+
+**7. Replace all "brown" with "purple" hair color**
+
+```{r}
+
+# first use stringr::str_replace()
+starwars %>%
+  dplyr::mutate(hair_color = stringr::str_replace(hair_color, "brown", "purple")) %>%
+  head()
+
+```
+
+## stringr::str_replace_na(string)
+
+**8. Replace all NA in hair_color with "none"**
+
+```{r}
+
+# first use stringr::str_replace() - does this work?
+starwars %>%
+  dplyr::mutate(hair_color = stringr::str_replace(hair_color, NA, ".")) %>%
+  head()
+
+# now use stringr::str_replace_na()
+starwars %>%
+  dplyr::mutate(hair_color = stringr::str_replace_na(hair_color, ".")) %>%
+  head()
+
+```
+
+# Subset strings
+
+## stringr::str_extract(string, pattern)
+
+**9. Grab the first vowel in each name**
+
+```{r}
+
+# use | for "or" statements
+starwars %>%
+  dplyr::mutate(first_vowel = stringr::str_extract(name, "[aeiou]")) %>%
+  head()
+
+```
+
+*Can also use stringr::str_extract_all to get all instances*
+
+## stringr::str_sub(string, start, end)
+
+**10. Get the first three letters of eye color**
+
+```{r}
+
+starwars %>%
+  dplyr::mutate(first_eyes = stringr::str_sub(eye_color, 1, 3)) %>%
+  head()
+
+# this can also be done with just normal string subsetting in base R
+starwars %>%
+  dplyr::mutate(first_eyes = substr(eye_color, 1, 3)) %>%
+  head()
+
+```
+
+**11. Replace first three letters of eye color with "eye"**
+
+```{r}
+
+# This is a weird setup, but it is permanent changing this dataframe lol
+stringr::str_sub(starwars$eye_color, 1, 3) <- "eye"
+
+```
+
+## stringr::str_subset(string, pattern)
+
+**12. Keep only the Skywalkers**
+
+```{r}
+# This doesn't seem as helpful as a grepl or str_detect...?
+# Would maybe be more useful outside of a dataframe
+starwars %>%
+  dplyr::filter(name %in% stringr::str_subset(name, "Skywalker")) %>%
+  head()
+
+```
+
+## stringr::str_match(string, pattern)
+
+**13. XXX**
+
+```{r}
+# This doesn't seem as helpful as a grepl or str_detect...?
+starwars %>%
+  dplyr::filter(name %in% stringr::str_subset(name, "Skywalker")) %>%
+  head()
+
+```
+
+*Can also use stringr::str_match_all to get all instances*
+
+# Join and Split
+
+## stringr::str_c(string1, string2...)
+
+**14. Give each starwars character a PhD**
+
+```{r}
+
+# combine ", PhD" to each name
+starwars %>%
+  dplyr::mutate(name = stringr::str_c(name, ", PhD")) %>%
+  head()
+
+# compare to paste
+starwars %>%
+  dplyr::mutate(name = paste(name, ", PhD", sep = "")) %>%
+  head()
+
+# compare to paste0
+starwars %>%
+  dplyr::mutate(name = paste0(name, ", PhD")) %>%
+  head()
+
+# compare to glue::glue
+starwars %>%
+  dplyr::mutate(name = glue::glue("{name}, PhD")) %>%
+  head()
+
+# cool glue function I just learned, glue::glue_data
+glue::glue_data(starwars, "{starwars$name} has {starwars$hair_color} hair")
+
+```
+
+## stringr::str_split_fixed(string, pattern, n)
+
+*My most used stringr function...*
+
+**15. Split 'name' into 'first name' and 'last name'**
+
+```{r}
+
+# hint: try stringr::str_split_fixed("Luke Skywalker", " ", 2) first
+stringr::str_split_fixed("Luke Skywalker", " ", 2)
+
+# This doesn't seem as helpful as a grepl or str_detect...?
+starwars %>%
+  dplyr::mutate(first = stringr::str_split_fixed(name, " ", 2)[,1],
+                second = stringr::str_split_fixed(name, " ", 2)[,2]) %>%
+  head()
+
+# compare this to tidyr::separate
+test <- starwars %>%
+  tidyr::separate(name, into = c("first", "second"), sep = " ") %>%
+  head()
+
+# sometimes separate doesn't work how I expect, usually when there are different lengths (i.e. Beru Whitesun lars)
+
+```
+
+## stringr::str_split(string, pattern)
+
+*You can also just split on a pattern, useful when you have different lengths... however this is not very useful in a dataframe setting if you need to split each row into the same number of columns, so I usually don't use it*
+
+**16. Split 'name' into 'first name' and 'last name'**
+
+```{r}
+
+# hint: try stringr::str_split("Luke Skywalker", " ") first
+stringr::str_split("Luke Skywalker", " ")
+
+# notice the output format is different
+
+# This doesn't seem as helpful as a grepl or str_detect...?
+starwars %>%
+  dplyr::rowwise() %>%
+  dplyr::mutate(first = stringr::str_split(name, " ")[[1]][1],
+                second = stringr::str_split(name, " ")[[1]][2]) %>%
+  head()
+
+# If you want to make sure you are always getting the last name, not the middle name, you could try tail (but will this work for C-3PO? Nope...)
+starwars %>%
+  dplyr::rowwise() %>%
+  dplyr::mutate(first = stringr::str_split(name, " ")[[1]][1],
+                second = tail(stringr::str_split(name, " ")[[1]], n = 1)) %>%
+  dplyr::mutate(second = ifelse(first == second, NA, second)) %>% # trying to get around C-3PO issue
+  head()
+
+```
+
+# Manage length
+
+## stringr::str_length(string)
+
+**17. Add a new column that counts the number of letters in each name**
+
+```{r}
+
+# Is this accurate? Does it count spaces?
+starwars %>%
+  dplyr::mutate(letters = stringr::str_length(name)) %>%
+  head()
+
+```
+
+**18. Same, but remove spaces**
+
+```{r}
+
+# Try to combine with str_replace?
+starwars %>%
+  dplyr::mutate(letters = stringr::str_length(stringr::str_replace_all(name, " ", ""))) %>%
+  head()
+
+# stringr::str_trim(string, side) could be useful, but ony trims whitespace from end or beginning... not middle
+stringr::str_trim(" test ")
+
+stringr::str_trim(" test ", "left")
+
+```
+
+## stringr::str_trim(string, side)
+
+**19. Same, but remove spaces**
+
+```{r}
+
+# Is this accurate? Does it count spaces?
+starwars %>%
+  dplyr::mutate(letters = stringr::str_length(stringr::str_trim(name))) %>%
+  head()
+
+```
+
+------------------------------------------------------------------------
+
+# Regular Expressions
+
+*Some people, when confronted with a problem, think "I know, I’ll use regular expressions." Now they have two problems.*
+
+- Regular expressions are a concise language for describing patterns in strings.
+- Patterns in `stringr` are interpreted as regexs
+- There are some special characters (sequences of characters that have a specific meaning)
+  - *i.e. `\n` = new line
+- Use `writeLines()` to see how R views your string after all special characters have been parsed
+- Can also use `stringr::str_view_all()` to see what the matches will be
+
+```{r}
+
+# check out special characters and writeLines()
+writeLines("\n")
+
+writeLines("\\n")
+
+```
+
+**Here are a few regular expressions you might use, check out this [cheat sheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) or [this page](https://r4ds.had.co.nz/strings.html) for more**
+
+#### Basics 
+
+```{r}
+
+# example string to practice with
+s <- "C. elegans are the #1 worms!"
+
+# match every character except a new line - pulls out the first match
+stringr::str_view_all(s, ".")
+
+# match any white space
+stringr::str_view_all(s, "\\s")
+stringr::str_view_all(s, "[:blank:]")
+
+# match any non-white sapce
+stringr::str_view_all(s, "\\S")
+
+# Any numbers
+stringr::str_view_all(s, "[:digit:]")
+
+# Any letters
+stringr::str_view_all(s, "[:alpha:]")
+
+# Any letters and numbers
+stringr::str_view_all(s, "[:alnum:]")
+
+# Any punctuation
+stringr::str_view_all(s, "[:punct:]")
+```
+
+#### More complicated
+
+```{r}
+
+# example string to practice with
+s <- "C. elegans are the #1 worms!"
+s2 <- "C. briggsae are the #2 worms?"
+s3 <- "Tropicalis are the #3 worms..."
+
+# match this or that
+stringr::str_view_all(s, "C. elegans|C. briggsae")
+stringr::str_view_all(s2, "C. elegans|C. briggsae")
+stringr::str_view(c("grey", "gray"), "gr(e|a)y")
+
+# Match start of string
+stringr::str_view_all(s, "^C.")
+stringr::str_view_all(s3, "^C.")
+
+# Match end of string
+stringr::str_view_all(s, "!$")
+stringr::str_view_all(s2, "!$")
+
+# To remember: If you begin with power (^) you'll end up with money ($)
+
+# to force the entire match, you can combine ^ and &
+x <- c("apple pie", "apple", "apple cake")
+stringr::str_view(x, "apple")
+stringr::str_view(x, "^apple$")
+
+# Pull out a match in between two strings
+stringr::str_view_all(s, "C. (.*) are")
+stringr::str_match(s, "C. (.*) are")[,2]
+
+# (.*) means to match zero or more of '.' which means any character
+
+
+```
+
+## When you use a string with stringr, it automatically wraps it in `regex()`
+
+```{r}
+
+# you can use comments = T to comment your regex code so you don't forget what it means!
+phone <- regex("
+  \\(?     # optional opening parens
+  (\\d{3}) # area code
+  [) -]?   # optional closing parens, space, or dash
+  (\\d{3}) # another three numbers
+  [ -]?    # optional space or dash
+  (\\d{3}) # three more numbers
+  ", comments = TRUE)
+
+str_match("514-791-8141", phone)
+
+```
+
+## Miscellaneous
+
+```{r}
+
+# you can use apropros() to search for functions in packages currently loaded using regex
+apropos("match")
+
+# list files in directory with a specific file type
+dir(pattern = "\\.Rmd$")
+
+```
+
+
+------------------------------------------------------------------------
+
+# Biology problems
+
+Given the following amino acid change `A371P`:
+
+1.  Get the first amino acid
+
+2.  Get the last amino acid
+
+3.  Get the position of the amino acid change
+
+Given the following info field from the *C. elegans* GFF:
+
+`ID=gene:WBGene00269434;Name=WBGene00269434;interpolated_map_position=-26.9807;locus=sqst-5;sequence_name=T17A3.13;biotype=protein_coding;so_term_name=protein_coding_gene;curie=WB:WBGene00269434;Alias=sqst-5,T17A3.13`
+
+4.  Get the wormbase ID
+
+5.  Get the locus name
+
+Given the following HTA trait names `zinc.median.TOF` and `fluoxetine.125.median.TOF`:
+
+6.  Get the drug names (i.e. `zinc` and `fluoxetine.125`)
+
+7.  Get the trait names (i.e. `median.TOF`)
